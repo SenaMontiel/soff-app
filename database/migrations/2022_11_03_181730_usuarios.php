@@ -13,14 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ventas', function(Blueprint $table){
+        Schema::create('users', function(Blueprint $table){
             $table -> id();
-            $table -> foreignId('id_cliente') -> constrained('clientes');
-            $table -> foreignId('id_usuario') -> constrained('usuarios'); 
-            $table -> foreignId('id_empresa') -> constrained('empresa');
-            $table -> dateTime('fecha');
-            $table -> enum('lista_productos', []);
-            $table -> string('metodo_pago');
+            $table -> string('nombre');
+            $table -> string('apellidos');
+            $table -> integer('numero_cedula');
+            $table -> string('rol');
+            $table -> integer('edad');
+            $table -> string('contraseña');
+            $table -> rememberToken();
+            $table -> timestamps();
         });
     }
 
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('users');
     }
 };

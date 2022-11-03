@@ -18,9 +18,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'nombre',
+        'apellidos',
+        'numero_cedula',
+        'rol',
+        'edad',
+        'contraseña',
     ];
 
     /**
@@ -29,7 +32,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        'contraseña',
         'remember_token',
     ];
 
@@ -41,4 +44,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Vamos a encriptar la contraseña del usuario al momento de registrarlo.
+    public function setContraseñaAttribute($value){
+        $this->attributes['contraseña'] = bcrypt($value);
+    }
 }
